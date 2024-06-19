@@ -40,7 +40,7 @@ const Modal = ({ productId }: Props ) => {
                 <Dialog as='div' onClose={closeModal} className="dialog-container">
                     <div className='min-h-screen px-4 text-center'>
                         <TransitionChild 
-                            as='div'
+                            as={Fragment}
                             enter='ease-out duration-300'
                             enterFrom='opacity-0'
                             enterTo='opacity-100'
@@ -48,17 +48,17 @@ const Modal = ({ productId }: Props ) => {
                             leaveFrom='opacity-100'
                             leaveTo='opacity-0'
                         >
-                            {/* <DialogOverlay className="fixed inset-0" /> */}
-
+                           <div className="fixed inset-0 bg-black bg-opacity-30" />
+        
                         </TransitionChild>
 
                         <span 
-                        className='inline-blockh-screen align-middle' 
-                        aria-hidden='true'
+                            className='inline-block h-screen align-middle' 
+                            aria-hidden='true'
                         />
 
                         <TransitionChild
-                            as='div'
+                            as={Fragment}
                             enter='ease-out duration-300'
                             enterFrom='opacity-0 scale-95'
                             enterTo='opacity-100 scale-100'
@@ -87,7 +87,8 @@ const Modal = ({ productId }: Props ) => {
                                             onClick={closeModal}
                                         />
                                     </div>
-                                    <h4>
+                                    
+                                    <h4 className="dialog-head_text">
                                         Stay updated with product pricing alerts right in your inbox!
                                     </h4>
                                     <p className='text-sm text-gray-600 mt-2'>
@@ -113,26 +114,22 @@ const Modal = ({ productId }: Props ) => {
                                             placeholder='Enter your email address'
                                             className='dialog-input'
                                         />
-                                        <button type='submit' className='dialog-btn'>
-                                            {isSubmitting ? 'Submitting...' : 'Track'}
-                                        </button>
-                                       
                                     </div>
+                                    <button type='submit' className='dialog-btn'>
+                                        {isSubmitting ? 'Submitting...' : 'Track'}
+                                    </button>
+                                       
                                 </form>
                             </div>
                         </TransitionChild>
 
                     </div>
                 </Dialog>
-
             </Transition>
-
-            
-
-
         
         </>
   )
 }
 
 export default Modal
+

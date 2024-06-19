@@ -10,7 +10,6 @@ const heroImages =[
     {imgUrl : '/assets/images/hero-3.svg',alt:'laptop'},
     {imgUrl : '/assets/images/hero-4.svg',alt:'sneakers'},
     {imgUrl : '/assets/images/hero-5.svg',alt:'lamp'},
-    
 ]
 
 const HeroCarousel = () => {
@@ -20,7 +19,7 @@ const HeroCarousel = () => {
             showThumbs={false}
             // autoPlay
             infiniteLoop
-            interval={2000}
+            // interval={2000}
             showArrows={false}
             showStatus={false}
         >
@@ -35,6 +34,7 @@ const HeroCarousel = () => {
                 />
             ))}
         </Carousel>
+        
         <Image 
         src="/assets/icons/hand-drawn-arrow.svg"
         alt = "arrow"

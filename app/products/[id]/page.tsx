@@ -7,7 +7,6 @@ import { Product } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { format } from "path";
 
 type Props = {
     params: { id: string }
@@ -28,7 +27,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
           <Image 
             src={product.image}
             alt={product.title}
-            width={500}
+            width={580}
             height={400}
             className="mx-auto"
 
@@ -39,7 +38,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
           <div className="flex justify-between items-start gap-5 flex-wrap pb-6">
             <div className="flex flex-col gap-3">
 
-              <p className="text-[20px] text-secondary font-semibold">
+              <p className="text-[28px] text-secondary font-semibold">
                 {product.title}
               </p>
 
@@ -87,13 +86,13 @@ const ProductDetails = async ({ params: { id } }: Props) => {
 
           <div className="product-info">
             <div className="flex flex-col gap-2">
-              <p>
+              <p className="text-[34px] text-secondary font-bold">
                 {product.currency} { formatNumber(product.currentPrice)}
               </p>
-              <p>
+              <p className="text-[21px] text-black opacity-50 line-through">
                 {product.currency} {formatNumber(product.originalPrice)}
               </p>
-            </div>
+            </div> 
 
             <div className="flex flex-col gap-4">
               <div className="flex gap-3">
@@ -123,7 +122,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
               </div>
 
               <p className="text-sm text-black opacity-50">
-                <span className="text-primary-green font-semibold">93% </span>
+                <span className="text-primary-green font-semibold">92% </span>
                 of buyers have recommended this.
               </p>
             </div>
@@ -198,7 +197,6 @@ const ProductDetails = async ({ params: { id } }: Props) => {
 
           </div>
         </div>
-
       )}
 
     </div>

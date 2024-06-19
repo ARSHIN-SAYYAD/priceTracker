@@ -47,7 +47,6 @@ export async function scrapeAndStoreProduct
         revalidatePath(`/products/${newProduct.id}`);
     } catch (error: any) {
         throw new Error(`Failed to create/update product: ${error.message}`)
-        
     }
 }
 
@@ -109,11 +108,11 @@ export async function addUserEmailToProduct(productId: string, userEmail: string
 
             await product.save();
 
-            const emailContent = generateEmailBody(product, "WELCOME");
+            const emailContent = await generateEmailBody(product, "WELCOME");
 
-            await sendEmail(emailContent, [userEmail]);
+            await sendEmail( emailContent, [userEmail]);
         }
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }

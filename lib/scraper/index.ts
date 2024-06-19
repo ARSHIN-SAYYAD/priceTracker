@@ -1,7 +1,9 @@
+"use server"
+
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { extractCurrency, extractDescription, extractPrice } from '../utils';
-import { json } from 'stream/consumers';
+
 
 export async function scrapeAmazonProduct(url:string)  {
     if(!url) return;
@@ -32,16 +34,20 @@ export async function scrapeAmazonProduct(url:string)  {
             $('.priceToPay span.a-price-whole'),
             $('.a.size.base.a-color-price'),
             $('.a-button-selected .a-color-base'),
-            $('.a-price-whole')
+            $('.a-price-whole'),
 
         );
 
         const originalPrice = extractPrice(
-            $('#priceblock_ourprice'),
-            $('span.a-price.a-text-price'),
-            $('#listPrice'),
-            $('#pricelock_dealprice'),
-            $('.a-size-base.a-color-price'),
+            // $('span.a-offscreen'),
+            // $('span.a-price.a-text-price'),
+            // $('span.a-size-small.a-color-secondary.aok-align-center.basisPrice'),
+
+            $("#priceblock_ourprice"),
+            $(".a-price.a-text-price span.a-offscreen"),
+            $("#listPrice"),
+            $("#priceblock_dealprice"),
+            $(".a-size-base.a-color-price")
         );
         
         const outOfStock = $('#availability span').text().trim().toLowerCase
@@ -59,6 +65,7 @@ export async function scrapeAmazonProduct(url:string)  {
 
         const description = extractDescription($)
 
+
         // construct data objects with scraped info.
         const data = {
             url,
@@ -70,16 +77,19 @@ export async function scrapeAmazonProduct(url:string)  {
             priceHistory: [],
             discountRate: Number(discountRate),
             category: 'category',
+            reviewsCount:100,
+            stars: 4.5,
             isOutOfStock: outOfStock,
             description,
             lowestPrice: Number(currentPrice) || Number(originalPrice),
             highestPrice: Number(originalPrice) || Number(currentPrice),
             averagePrice: Number(currentPrice) || Number(originalPrice),
+            
         }
 
         return data;
     } catch (error: any) {
-        throw new Error(`Failed to scrape product : ${error.message}`)
-        
+        // throw new Error(`Failed to scrape product : ${error.message}`)
+        console.log(error);
     }
 }

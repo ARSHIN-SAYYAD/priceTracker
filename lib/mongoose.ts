@@ -1,4 +1,4 @@
-import mongoose, { mongo } from 'mongoose';  //helps to make connection with our mongoDB database
+import mongoose from 'mongoose';  //helps to make connection with our mongoDB database
 
 let isConnected = false; //variable to track the connection status
 

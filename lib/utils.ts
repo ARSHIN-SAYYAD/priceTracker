@@ -1,4 +1,3 @@
-
 import { PriceHistoryItem, Product } from "@/types";
 
 const Notification = {
@@ -8,7 +7,7 @@ const Notification = {
   THRESHOLD_MET: 'THRESHOLD_MET',
 }
 
- const THRESHOLD_PERCENTAGE = 40;
+const THRESHOLD_PERCENTAGE = 40;
 
 // Extracts and returns the price from a list of possible elements.
 export function extractPrice(...elements: any) {
@@ -21,7 +20,7 @@ export function extractPrice(...elements: any) {
       let firstPrice; 
 
       if (cleanPrice) {
-        firstPrice = cleanPrice.match(/^\d+(?:\.\d{1,2})?$/)?.[0];
+        firstPrice = cleanPrice.match(/\d+\.\d{2}/)?.[0];
       } 
 
       return firstPrice || cleanPrice;
