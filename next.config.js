@@ -1,23 +1,30 @@
-// /** @type {import('next').NextConfig} */
-// const nextConfig = {
-    
-//     images: {
-//       domains: ['m.media-amazon.com']
-//     }
-//   }
-  
-//   module.exports = nextConfig
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async rewrites() {
-    return [
+    
+    images: {
+      remotePatterns: [
       {
-        source: '/:path*',
-        destination: '/',
+        protocol: 'https',
+        hostname: 'm.media-amazon.com',
+        // port: '',
+        // pathname: '/account123/**',
       },
-    ];
-  },
-};
+    ],
+    }
+  }
+  
+  module.exports = nextConfig
 
-module.exports = nextConfig;
+// /** @type {import('next').NextConfig} */
+// const nextConfig = {
+//   async rewrites() {
+//     return [
+//       {
+//         source: '/:path*',
+//         destination: '/',
+//       },
+//     ];
+//   },
+// };
+
+// module.exports = nextConfig;
