@@ -53,9 +53,7 @@
 //         const emailNotifType = getEmailNotifType(
 //           scrapedProduct,
 //           currentProduct
-//         );
-
-//         if (emailNotifType && updatedProduct.users.length > 0) {
+//    //         if (emailNotifType && updatedProduct.users.length > 0) {
 //           const productInfo = {
 //             title: updatedProduct.title,
 //             url: updatedProduct.url,
@@ -79,7 +77,9 @@
 //   } catch (error: any) {
 //     throw new Error(`Failed to get all products: ${error.message}`);
 //   }
-// }
+// }     );
+
+
 
 import { NextResponse } from "next/server";
 
@@ -109,7 +109,7 @@ export async function GET(request: Request) {
 
         if (!scrapedProduct || !scrapedProduct.currentPrice) {
           console.warn(`Failed to scrape product or missing price for URL: ${currentProduct.url}`);
-          return null;
+          return currentProduct;
         }
 
         const updatedPriceHistory = [
@@ -168,7 +168,7 @@ export async function GET(request: Request) {
 
     return NextResponse.json({
       message: "Ok",
-      data: filteredProducts,
+      data: updatedProducts,
     });
   } catch (error: any) {
     console.error(`Failed to get all products: ${error.message}`);
