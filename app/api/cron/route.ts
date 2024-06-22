@@ -1,4 +1,3 @@
-
 import { NextResponse } from "next/server";
 
 import { getLowestPrice, getHighestPrice, getAveragePrice, getEmailNotifType } from "@/lib/utils";
@@ -25,10 +24,7 @@ export async function GET(request: Request) {
         // Scrape product
         const scrapedProduct = await scrapeAmazonProduct(currentProduct.url);
 
-        if (!scrapedProduct || !scrapedProduct.currentPrice) {
-          console.warn(`Failed to scrape product or missing price for URL: ${currentProduct.url}`);
-          return currentProduct;
-        }
+        if (!scrapedProduct) return;
 
         const updatedPriceHistory = [
           ...currentProduct.priceHistory,
@@ -50,14 +46,8 @@ export async function GET(request: Request) {
           {
             url: product.url,
           },
-          product,
-          { new: true } // Return the updated product
+          product
         );
-
-        if (!updatedProduct) {
-          console.error(`Failed to update product in DB for URL: ${product.url}`);
-          return null;
-        }
 
         // ======================== 2 CHECK EACH PRODUCT'S STATUS & SEND EMAIL ACCORDINGLY
         const emailNotifType = getEmailNotifType(
@@ -82,16 +72,11 @@ export async function GET(request: Request) {
       })
     );
 
-    const filteredProducts = updatedProducts.filter(product => product !== null);
-
     return NextResponse.json({
       message: "Ok",
       data: updatedProducts,
     });
   } catch (error: any) {
-    console.error(`Failed to get all products: ${error.message}`);
-    return NextResponse.json({
-      message: `Failed to get all products: ${error.message}`,
-    }, { status: 500 });
+    throw new Error(`Failed to get all products: ${error.message}`);
   }
 }
