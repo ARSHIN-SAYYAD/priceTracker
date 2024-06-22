@@ -65,6 +65,11 @@ export async function scrapeAmazonProduct(url:string)  {
 
         const description = extractDescription($)
 
+        // Make sure to return null if the scraping fails or price is missing
+        if (!currentPrice) {
+            console.warn(`Failed to scrape price for URL: ${url}`);
+            return null;
+        }
 
         // construct data objects with scraped info.
         const data = {
